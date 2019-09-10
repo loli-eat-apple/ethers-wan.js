@@ -430,6 +430,7 @@ declare module 'ethers/utils/transaction' {
         chainId?: number;
     };
     export interface Transaction {
+        Txtype?: string;
         hash?: string;
         to?: string;
         from?: string;
