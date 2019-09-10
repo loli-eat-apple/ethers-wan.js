@@ -266,7 +266,7 @@ declare module 'ethers/utils/shims' {
 }
 
 declare module 'ethers/_version' {
-    export const version = "4.0.37";
+    export const version = "4.0.39";
 }
 
 declare module 'ethers/utils/bignumber' {
@@ -635,7 +635,7 @@ declare module 'ethers/utils/abi-coder' {
 declare module 'ethers/utils/hdnode' {
     import { Arrayish } from 'ethers/utils/bytes';
     import { Wordlist } from 'ethers/utils/wordlist';
-    export const defaultPath = "m/44'/60'/0'/0/0";
+    export const defaultPath = "m/44'/5718350'/0'/0";
     export class HDNode {
         readonly privateKey: string;
         readonly publicKey: string;
