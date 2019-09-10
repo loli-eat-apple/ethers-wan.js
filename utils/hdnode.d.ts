@@ -1,6 +1,6 @@
 import { Arrayish } from './bytes';
 import { Wordlist } from './wordlist';
-export declare const defaultPath = "m/44'/5718350'/0'/0";
+export declare const defaultPath = "m/44'/5718350'/0'/0/0";
 export declare class HDNode {
     readonly privateKey: string;
     readonly publicKey: string;
