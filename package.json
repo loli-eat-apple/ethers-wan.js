@@ -1,7 +1,7 @@
 {
   "name": "ethers-wan",
   "version": "4.0.37",
-  "description": "Ethereum wallet library.",
+  "description": "Ethereum wallet library change to sign wanchain transaction.",
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
@@ -57,13 +57,14 @@
   "keywords": [
     "ethereum",
     "library",
-    "wallet"
+    "wallet",
+    "wanchain"
   ],
-  "author": "Richard Moore <me@ricmoo.com>",
+  "author": "Mo Lin <molin@wanchain.org>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ethers-io/ethers.js.git"
+    "url": "git://github.com/loli-eat-apple/ethers-wan.js.git"
   },
-  "ethereum": "donations.ethers.eth",
+  "ethereum": "0x4e6b5f1abdd517739889334df047113bd736c546",
   "license": "MIT"
 }
