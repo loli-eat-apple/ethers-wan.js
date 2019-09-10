@@ -1,5 +1,5 @@
 {
-  "name": "ethers",
+  "name": "ethers-wan",
   "version": "4.0.37",
   "description": "Ethereum wallet library.",
   "main": "./index.js",
