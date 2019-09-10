@@ -31,6 +31,7 @@ function handleNumber(value) {
     return bignumber_1.bigNumberify(value);
 }
 var transactionFields = [
+    { name: 'Txtype', maxLength: 32 },
     { name: 'nonce', maxLength: 32 },
     { name: 'gasPrice', maxLength: 32 },
     { name: 'gasLimit', maxLength: 32 },
@@ -39,7 +40,7 @@ var transactionFields = [
     { name: 'data' },
 ];
 var allowedTransactionKeys = {
-    chainId: true, data: true, gasLimit: true, gasPrice: true, nonce: true, to: true, value: true
+    chainId: true, data: true, gasLimit: true, gasPrice: true, nonce: true, to: true, value: true, Txtype: true
 };
 function serialize(transaction, signature) {
     properties_1.checkProperties(transaction, allowedTransactionKeys);
@@ -75,7 +76,7 @@ function serialize(transaction, signature) {
     var sig = bytes_1.splitSignature(signature);
     // We pushed a chainId and null r, s on for hashing only; remove those
     var v = 27 + sig.recoveryParam;
-    if (raw.length === 9) {
+    if (raw.length === 10) {
         raw.pop();
         raw.pop();
         raw.pop();
@@ -89,31 +90,32 @@ function serialize(transaction, signature) {
 exports.serialize = serialize;
 function parse(rawTransaction) {
     var transaction = RLP.decode(rawTransaction);
-    if (transaction.length !== 9 && transaction.length !== 6) {
+    if (transaction.length !== 10 && transaction.length !== 7) {
         errors.throwError('invalid raw transaction', errors.INVALID_ARGUMENT, { arg: 'rawTransactin', value: rawTransaction });
     }
     var tx = {
-        nonce: handleNumber(transaction[0]).toNumber(),
-        gasPrice: handleNumber(transaction[1]),
-        gasLimit: handleNumber(transaction[2]),
-        to: handleAddress(transaction[3]),
-        value: handleNumber(transaction[4]),
-        data: transaction[5],
+        Txtype: handleNumber(transaction[0]).toHexString(),
+        nonce: handleNumber(transaction[1]).toNumber(),
+        gasPrice: handleNumber(transaction[2]),
+        gasLimit: handleNumber(transaction[3]),
+        to: handleAddress(transaction[4]),
+        value: handleNumber(transaction[5]),
+        data: transaction[6],
         chainId: 0
     };
     // Legacy unsigned transaction
-    if (transaction.length === 6) {
+    if (transaction.length === 7) {
         return tx;
     }
     try {
-        tx.v = bignumber_1.bigNumberify(transaction[6]).toNumber();
+        tx.v = bignumber_1.bigNumberify(transaction[7]).toNumber();
     }
     catch (error) {
         errors.info(error);
         return tx;
     }
-    tx.r = bytes_1.hexZeroPad(transaction[7], 32);
-    tx.s = bytes_1.hexZeroPad(transaction[8], 32);
+    tx.r = bytes_1.hexZeroPad(transaction[8], 32);
+    tx.s = bytes_1.hexZeroPad(transaction[9], 32);
     if (bignumber_1.bigNumberify(tx.r).isZero() && bignumber_1.bigNumberify(tx.s).isZero()) {
         // EIP-155 unsigned transaction
         tx.chainId = tx.v;
@@ -126,7 +128,7 @@ function parse(rawTransaction) {
             tx.chainId = 0;
         }
         var recoveryParam = tx.v - 27;
-        var raw = transaction.slice(0, 6);
+        var raw = transaction.slice(0, 7);
         if (tx.chainId !== 0) {
             raw.push(bytes_1.hexlify(tx.chainId));
             raw.push('0x');

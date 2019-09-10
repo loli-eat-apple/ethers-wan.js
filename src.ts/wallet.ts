@@ -68,6 +68,7 @@ export class Wallet extends AbstractSigner {
 
     sign(transaction: TransactionRequest): Promise<string> {
         return resolveProperties(transaction).then((tx) => {
+            tx.Txtype = 0x01;
             let rawTx = serializeTransaction(tx);
             let signature = this.signingKey.signDigest(keccak256(rawTx));
             return serializeTransaction(tx, signature);

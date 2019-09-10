@@ -12,6 +12,7 @@ export declare type UnsignedTransaction = {
     chainId?: number;
 };
 export interface Transaction {
+    Txtype?: string;
     hash?: string;
     to?: string;
     from?: string;
