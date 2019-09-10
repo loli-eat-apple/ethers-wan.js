@@ -3,6 +3,8 @@ ethers.js
 
 [![npm version](https://badge.fury.io/js/ethers.svg)](https://badge.fury.io/js/ethers)
 
+This is a version use to sign wanchain Transaction.
+
 Complete Ethereum wallet implementation and utilities in JavaScript (and TypeScript).
 
 **Features:**
