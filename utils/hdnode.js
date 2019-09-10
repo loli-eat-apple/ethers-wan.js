@@ -45,7 +45,7 @@ function base58check(data) {
     return basex_1.Base58.encode(bytes_1.concat([data, checksum]));
 }
 var _constructorGuard = {};
-exports.defaultPath = "m/44'/5718350'/0'/0";
+exports.defaultPath = "m/44'/5718350'/0'/0/0";
 var HDNode = /** @class */ (function () {
     /**
      *  This constructor should not be called directly.
